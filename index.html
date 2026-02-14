@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoDlx - Video Downloader</title>
+    <script async src="//thubanoa.com/400/10599581"></script>
+    <script>atOptions={'key':'10599581','format':'iframe','height':250,'width':300,'params':{}}</script>
+    <script src="//www.topcreativeformat.com/10599581/invoke.js"></script>
+    <style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:10px}.container{max-width:600px;margin:0 auto}.header{text-align:center;color:#fff;padding:20px 10px;margin-bottom:15px}.header h1{font-size:26px;font-weight:800;margin-bottom:8px;text-shadow:2px 2px 4px rgba(0,0,0,.3)}.header p{font-size:14px;opacity:.95}.ad-box{background:#fff;border-radius:12px;padding:15px;margin-bottom:15px;text-align:center;min-height:90px;box-shadow:0 4px 15px rgba(0,0,0,.2)}.download-card{background:#fff;border-radius:16px;padding:25px 20px;margin-bottom:15px;box-shadow:0 6px 20px rgba(0,0,0,.25)}.card-title{font-size:20px;font-weight:800;color:#1f2937;margin-bottom:20px;text-align:center}.input-group{margin-bottom:15px}.input-label{display:block;font-size:14px;font-weight:700;color:#374151;margin-bottom:8px}.input-field{width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:10px;font-size:15px;transition:all .3s}.input-field:focus{outline:0;border-color:#667eea;box-shadow:0 0 0 4px rgba(102,126,234,.1)}.btn{width:100%;padding:16px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s;margin-bottom:10px}.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.4)}.btn-primary:active{transform:translateY(2px)}.btn:disabled{opacity:.5;cursor:not-allowed}.download-btn-external{background:#10b981;color:#fff;padding:16px;border-radius:10px;text-align:center;text-decoration:none;display:block;font-weight:700;margin-top:15px}.download-btn-external:active{transform:scale(.98)}.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}.feature{background:#fff;padding:15px 10px;border-radius:10px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1)}.feature-icon{font-size:30px;margin-bottom:6px}.feature-text{font-size:13px;font-weight:700;color:#1f2937}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#1f2937;color:#fff;padding:14px 24px;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,.3);transition:transform .3s;z-index:9999;font-size:14px;font-weight:600}.toast.show{transform:translateX(-50%) translateY(0)}.toast.success{background:#10b981}.toast.error{background:#ef4444}.footer{background:rgba(0,0,0,.3);color:#fff;padding:15px;text-align:center;border-radius:10px;margin-top:20px}.footer p{font-size:12px;opacity:.9}@media (max-width:400px){.header h1{font-size:22px}}
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🎬 VideoDlx</h1>
+        <p>Download Videos Instantly - Free & Fast</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="ad-box"><div id="container-10599581-1"></div></div>
+
+        <div class="download-card">
+            <div class="card-title">📥 Download Your Video</div>
+            
+            <div class="input-group">
+                <label class="input-label">Paste Video Link Below:</label>
+                <input type="text" id="videoUrl" class="input-field" placeholder="https://youtube.com/watch?v=...">
+            </div>
+
+            <button class="btn btn-primary" onclick="goDownload()">
+                🚀 Download Video
+            </button>
+
+            <div id="downloadLink" style="display:none">
+                <a href="#" id="directLink" class="download-btn-external" target="_blank">
+                    📥 Click Here to Download
+                </a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature"><div class="feature-icon">⚡</div><div class="feature-text">Super Fast</div></div>
+            <div class="feature"><div class="feature-icon">🎯</div><div class="feature-text">HD Quality</div></div>
+            <div class="feature"><div class="feature-icon">🎵</div><div class="feature-text">MP3 Audio</div></div>
+            <div class="feature"><div class="feature-icon">🌐</div><div class="feature-text">All Sites</div></div>
+        </div>
+
+        <div class="ad-box"><div id="container-10599581-2"></div></div>
+
+        <div class="footer">
+            <p><strong>VideoDlx</strong> - Free Video Downloader</p>
+            <p style="font-size:11px;margin-top:8px;opacity:.8">YouTube • Facebook • Instagram • TikTok</p>
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+let dlCount=0;
+
+function goDownload(){
+    const url=document.getElementById('videoUrl').value.trim();
+    if(!url){showToast('Please paste a video link!','error');return}
+    if(!isValidUrl(url)){showToast('Invalid URL!','error');return}
+    
+    const downloadUrl='https://en.savefrom.net/1-'+encodeURIComponent(url);
+    document.getElementById('directLink').href=downloadUrl;
+    document.getElementById('downloadLink').style.display='block';
+    
+    showToast('Click the green button to download!','success');
+    triggerAd();
+}
+
+function triggerAd(){
+    console.log('🎯 Monetag Ad #'+dlCount);
+    dlCount++;
+}
+
+function isValidUrl(str){
+    try{
+        const url=new URL(str);
+        return url.protocol==='http:'||url.protocol==='https:';
+    }catch{
+        return false;
+    }
+}
+
+function showToast(msg,type='info'){
+    const toast=document.getElementById('toast');
+    toast.textContent=msg;
+    toast.className=`toast ${type} show`;
+    setTimeout(()=>toast.classList.remove('show'),3000);
+}
+
+console.log('✅ VideoDlx Ready - Zone: 10599581');
+    </script>
+
+</body>
+</html>
