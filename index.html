@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoDlx - Free Video Downloader</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Monetag Ads - Zone 10599581 -->
+    <script async src="//thubanoa.com/400/10599581" data-cfasync="false"></script>
+    <script type="text/javascript">
+atOptions={'key':'10599581','format':'iframe','height':250,'width':300,'params':{}};
+</script>
+<script src="//www.topcreativeformat.com/10599581/invoke.js"></script>
+    
+    <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+body{background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
+.container{max-width:500px;margin:0 auto}
+.header{text-align:center;color:#fff;padding:30px 20px;margin-bottom:20px}
+.header h1{font-size:32px;margin-bottom:10px;text-shadow:2px 2px 8px rgba(0,0,0,.3);font-weight:800}
+.header p{font-size:16px;opacity:.95}
+.ad-zone{background:rgba(255,255,255,.95);border-radius:16px;padding:18px;margin-bottom:20px;min-height:100px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.main-card{background:#fff;border-radius:24px;padding:35px 28px;box-shadow:0 12px 48px rgba(0,0,0,.25);margin-bottom:20px}
+.input-label{font-size:20px;font-weight:800;color:#1f2937;margin-bottom:18px;text-align:center;display:block}
+.link-input{width:100%;padding:20px 18px;border:3px solid #e5e7eb;border-radius:16px;font-size:16px;margin-bottom:16px;transition:all .3s;font-weight:500}
+.link-input:focus{outline:0;border-color:#667eea;box-shadow:0 0 0 5px rgba(102,126,234,.15)}
+.btn{width:100%;padding:20px;border:none;border-radius:16px;font-size:17px;font-weight:800;cursor:pointer;transition:all .3s;margin-bottom:14px}
+.btn-paste{background:#f3f4f6;color:#1f2937;border:2px solid #e5e7eb}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 6px 20px rgba(102,126,234,.4)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.video-card{display:none;background:#fff;border-radius:24px;padding:24px;margin-bottom:20px;box-shadow:0 12px 48px rgba(0,0,0,.25)}
+.video-card.show{display:block;animation:slideIn .4s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-15px)}to{opacity:1;transform:translateY(0)}}
+.video-thumb{width:100%;height:200px;object-fit:cover;border-radius:16px;margin-bottom:18px}
+.video-title{font-size:18px;font-weight:700;margin-bottom:12px;color:#1f2937}
+.video-meta{font-size:15px;color:#6b7280;font-weight:600}
+.quality-card{display:none;background:#fff;border-radius:24px;padding:30px 25px;margin-bottom:20px;box-shadow:0 12px 48px rgba(0,0,0,.25)}
+.quality-card.show{display:block}
+.quality-title{font-size:20px;font-weight:800;text-align:center;margin-bottom:25px;color:#1f2937}
+.quality-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.quality-btn{background:#f9fafb;border:3px solid #e5e7eb;padding:22px 12px;border-radius:16px;cursor:pointer;text-align:center;transition:all .25s}
+.quality-btn:hover{border-color:#667eea;background:#fff;transform:translateY(-4px)}
+.quality-text{font-size:19px;font-weight:800;margin-bottom:6px}
+.quality-size{font-size:13px;color:#6b7280;font-weight:600}
+.audio-btn{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:20px;border-radius:16px;text-align:center;cursor:pointer;font-weight:800;font-size:17px;box-shadow:0 6px 20px rgba(245,158,11,.4)}
+.loading{opacity:.6;pointer-events:none}
+.toast{position:fixed;bottom:35px;left:50%;transform:translateX(-50%) translateY(120px);background:#1f2937;color:#fff;padding:18px 32px;border-radius:14px;box-shadow:0 12px 48px rgba(0,0,0,.4);transition:transform .4s;z-index:10000;font-weight:700}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{background:#10b981}
+.toast.error{background:#ef4444}
+@media (max-width:480px){.header h1{font-size:28px}.quality-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎬 VideoDlx</h1>
+        <p>Download from YouTube, Instagram, TikTok & More</p>
+    </div>
+    <div class="container">
+        <div class="ad-zone"><div id="container-10599581"></div></div>
+        <div class="main-card">
+            <label class="input-label">📎 Paste Video Link Here</label>
+            <input type="text" id="videoLink" class="link-input" placeholder="https://youtube.com/watch?v=...">
+            <button class="btn btn-paste" onclick="pasteLink()">📋 Paste</button>
+            <button class="btn btn-primary" id="fetchBtn" onclick="getVideo()">🚀 Get Download Options</button>
+        </div>
+        <div class="ad-zone"><div id="container-10599581-2"></div></div>
+        <div class="video-card" id="videoCard">
+            <img id="videoThumb" class="video-thumb" src="" alt="">
+            <div class="video-title" id="videoTitle"></div>
+            <div class="video-meta" id="videoMeta"></div>
+        </div>
+        <div class="quality-card" id="qualityCard">
+            <div class="quality-title">📹 Select Quality</div>
+            <div class="quality-grid" id="qualityGrid"></div>
+            <div class="audio-btn" onclick="downloadAudio()">🎵 Audio (MP3)</div>
+        </div>
+        <div class="ad-zone"><div id="container-10599581-3"></div></div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script>
+// ⬇️⬇️⬇️ এখানে আপনার Railway URL বসান ⬇️⬇️⬇️
+const API_URL='https://your-app.railway.app';
+// ⬆️⬆️⬆️ Railway deploy করার পর URL বসান ⬆️⬆️⬆️
+
+let tg=window.Telegram?.WebApp;if(tg){tg.expand();tg.ready()}
+let currentVideo=null,dlCount=0;
+
+async function pasteLink(){try{const t=await navigator.clipboard.readText();document.getElementById('videoLink').value=t;showToast('✅ Pasted!','success')}catch{showToast('📋 Paste manually','error')}}
+
+async function getVideo(){
+    const url=document.getElementById('videoLink').value.trim();
+    if(!url){showToast('❌ Enter link','error');return}
+    const btn=document.getElementById('fetchBtn');
+    btn.classList.add('loading');btn.disabled=true;btn.textContent='⏳ Loading...';
+    try{
+        const res=await fetch(`${API_URL}/api/video-info`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+        if(!res.ok)throw new Error('Failed');
+        const data=await res.json();
+        currentVideo=data;
+        document.getElementById('videoThumb').src=data.thumbnail||'https://via.placeholder.com/400x200?text=Video';
+        document.getElementById('videoTitle').textContent=data.title;
+        document.getElementById('videoMeta').textContent='🌐 '+data.source;
+        document.getElementById('videoCard').classList.add('show');
+        showQualityOptions(data.formats);
+        showToast('✅ Video found!','success')
+    }catch(e){showToast('❌ Failed. Try again.','error')}finally{btn.classList.remove('loading');btn.disabled=false;btn.textContent='🚀 Get Download Options'}
+}
+
+function showQualityOptions(formats){
+    const grid=document.getElementById('qualityGrid');
+    grid.innerHTML='';
+    (formats||[{quality:'720p'},{quality:'480p'},{quality:'360p'}]).forEach(f=>{
+        const btn=document.createElement('div');
+        btn.className='quality-btn';
+        btn.innerHTML=`<div class="quality-text">📹 ${f.quality}</div><div class="quality-size">~${Math.round((f.filesize||50000000)/1048576)}MB</div>`;
+        btn.onclick=()=>downloadVideo(f.quality);
+        grid.appendChild(btn)
+    });
+    document.getElementById('qualityCard').classList.add('show');
+    document.getElementById('qualityCard').scrollIntoView({behavior:'smooth',block:'center'})
+}
+
+async function downloadVideo(quality){
+    triggerAd();
+    showToast(`⬇️ Downloading ${quality}...`,'success');
+    try{
+        const res=await fetch(`${API_URL}/api/download`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:currentVideo.url,quality,is_audio:false})});
+        if(!res.ok)throw new Error('Failed');
+        const blob=await res.blob();
+        const url=window.URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download=`video_${quality}.mp4`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        showToast('✅ Download started!','success');
+        dlCount++
+    }catch(e){showToast('❌ Download failed','error')}
+}
+
+async function downloadAudio(){
+    triggerAd();
+    showToast('🎵 Downloading audio...','success');
+    try{
+        const res=await fetch(`${API_URL}/api/download`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:currentVideo.url,is_audio:true})});
+        if(!res.ok)throw new Error('Failed');
+        const blob=await res.blob();
+        const url=window.URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download='audio.mp3';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        showToast('✅ Audio download started!','success');
+        dlCount++
+    }catch(e){showToast('❌ Audio download failed','error')}
+}
+
+function triggerAd(){console.log('🎯 Monetag Ad #'+dlCount)}
+
+function showToast(msg,type='info'){
+    const t=document.getElementById('toast');
+    t.textContent=msg;
+    t.className=`toast ${type} show`;
+    setTimeout(()=>t.classList.remove('show'),3000)
+}
+
+console.log('✅ VideoDlx Loaded - Zone: 10599581');
+    </script>
+</body>
+</html>
